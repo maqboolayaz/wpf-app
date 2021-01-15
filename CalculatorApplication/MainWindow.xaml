@@ -1,0 +1,157 @@
+﻿<Window x:Class="CalculatorApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CalculatorApplication"
+        xmlns:viewModels="clr-namespace:CalculatorApplication.ViewModel"
+        xmlns:utils="clr-namespace:CalculatorApplication.Utils"
+        Background="#e0e2eb"
+        WindowState="Normal"
+        MinWidth="300"
+        MinHeight="300"
+        mc:Ignorable="d" 
+        Title="Calculator" 
+        Height="300" 
+        Width="300">
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+    <Grid Margin="8">
+        <Grid.Resources>
+            <Style x:Key="DefaultButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="BorderBrush" Value="#6a8bac"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Style.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="2"/>
+                    </Style>
+                </Style.Resources>
+            </Style>
+            <Style x:Key="NumberButtonStyle" BasedOn="{StaticResource DefaultButtonStyle}" TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="Foreground" Value="#6c6df7"/>
+            </Style>
+            <Style x:Key="TextButtonStyle" BasedOn="{StaticResource DefaultButtonStyle}" TargetType="{x:Type Button}">
+                <Setter Property="Foreground" Value="#121213"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Style>
+            <Style x:Key="OperationsButtonStyle" BasedOn="{StaticResource DefaultButtonStyle}" TargetType="{x:Type Button}">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Foreground" Value="#e74c50"/>
+            </Style>
+            <Style x:Key="InputTextBoxStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="FontFamily" Value="Arial"/>
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="Margin" Value="4"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="HorizontalContentAlignment" Value="Right"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--<ProgressBar x:Name="ProgressbarOperation" Visibility="Hidden"/>-->
+        <TextBox 
+            x:Name="TextBoxInput" 
+            Grid.Row="0" 
+            Style="{StaticResource InputTextBoxStyle}" 
+            Text="{Binding Expression}"
+            PreviewTextInput="inputTextBox_PreviewTextInput"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button x:Name="ButtonReset" 
+                    Grid.Row="0" 
+                    Grid.Column="0" 
+                    Style="{StaticResource TextButtonStyle}"
+                    Command="{Binding ExecuteOperationCommand}"
+                    CommandParameter="{x:Static utils:Operations.Reset}"
+                    Content="Reset"/>
+            <Button x:Name="ButtonFib" 
+                    Grid.Row="1" 
+                    Grid.Column="0" 
+                    Style="{StaticResource TextButtonStyle}"
+                    Command="{Binding ExecuteOperationCommand}"
+                    CommandParameter="{x:Static utils:Operations.Fib}"
+                    Content="Fib"/>
+            <Button x:Name="ButtonAns" 
+                    Grid.Row="3" 
+                    Grid.Column="0" 
+                    Style="{StaticResource TextButtonStyle}"
+                    Command="{Binding ExecuteOperationCommand}"
+                    CommandParameter="{x:Static utils:Operations.Equal}"
+                    Content="Ans"/>
+            <Button x:Name="ButtonSeven" Grid.Row="0" Grid.Column="1" 
+                    Style="{StaticResource NumberButtonStyle}" Content="7"
+                    Command="{Binding AddInputCommand}" CommandParameter="7"/>
+            <Button x:Name="ButtonFour" Grid.Row="1" Grid.Column="1" 
+                    Style="{StaticResource NumberButtonStyle}" Content="4"
+                    Command="{Binding AddInputCommand}" CommandParameter="4"/>
+            <Button x:Name="ButtonOne" Grid.Row="2" Grid.Column="1" 
+                    Content="1" Command="{Binding AddInputCommand}" CommandParameter="1"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonZero" Grid.Row="3" Grid.Column="1"
+                    Content="0" Command="{Binding AddInputCommand}" CommandParameter="0"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonEight" Grid.Row="0" Grid.Column="2"
+                    Content="8" Command="{Binding AddInputCommand}" CommandParameter="8"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonFive" Grid.Row="1" Grid.Column="2" 
+                    Content="5" Command="{Binding AddInputCommand}" CommandParameter="5"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonTwo" Grid.Row="2" Grid.Column="2" 
+                    Content="2" Command="{Binding AddInputCommand}" CommandParameter="2"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonPlusminus" Grid.Row="3" Grid.Column="2"
+                    Content="+/-" Command="{Binding AddInputCommand}" CommandParameter="11"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonNine" Grid.Row="0" Grid.Column="3" 
+                    Content="9" Command="{Binding AddInputCommand}" CommandParameter="9"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonSix" Grid.Row="1" Grid.Column="3"
+                    Content="6" Command="{Binding AddInputCommand}" CommandParameter="6"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonThree" Grid.Row="2" Grid.Column="3" 
+                    Content="3" Command="{Binding AddInputCommand}" CommandParameter="3"
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonPoint" Grid.Row="3" Grid.Column="3" 
+                    Content="." Command="{Binding AddInputCommand}" CommandParameter="."
+                    Style="{StaticResource NumberButtonStyle}"/>
+            <Button x:Name="ButtonDivide" Grid.Row="0" Grid.Column="4" 
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="/"
+                    Content="/" Style="{StaticResource OperationsButtonStyle}"/>
+            <Button x:Name="ButtonMultipy" Grid.Row="1" Grid.Column="4"
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="*"
+                    Content="*" Style="{StaticResource OperationsButtonStyle}"/>
+            <Button x:Name="ButtonSubstruct" Grid.Row="2" Grid.Column="4" 
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="-"
+                    Content="-" Style="{StaticResource OperationsButtonStyle}"/>
+            <Button x:Name="ButtonAdd" Grid.Row="3" Grid.Column="4" 
+                    Command="{Binding AddInputCommand}"
+                    CommandParameter="+"
+                    Content="+" Style="{StaticResource OperationsButtonStyle}"/>
+        </Grid>
+    </Grid>
+</Window>
